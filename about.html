@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about this GTM learning project and its goals">
+    <title>About - GTM Learning Project</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+        GTM Container Snippet will go here in <head>
+        We'll add this when we set up GTM in a later step
+    -->
+</head>
+<body>
+    <!--
+        GTM noscript snippet will go here (right after opening <body>)
+        This is a fallback for users with JavaScript disabled
+    -->
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GTM Learning</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h1>About This Project</h1>
+
+            <section class="card">
+                <h2>Purpose</h2>
+                <p>
+                    This is a hands-on learning project designed to help you master Google Tag Manager
+                    through practical implementation. Rather than just reading documentation, you'll
+                    build a real website with real tracking scenarios.
+                </p>
+            </section>
+
+            <section class="card">
+                <h2>Learning Approach</h2>
+                <p>
+                    We're taking a step-by-step approach to learning GTM:
+                </p>
+                <ol>
+                    <li><strong>Start Simple:</strong> Begin with basic page view tracking</li>
+                    <li><strong>Build Incrementally:</strong> Add complexity gradually</li>
+                    <li><strong>Implement Properly:</strong> Follow best practices from the start</li>
+                    <li><strong>Test Everything:</strong> Use GTM's debugging tools to verify</li>
+                    <li><strong>Document Learning:</strong> Keep notes on what you discover</li>
+                </ol>
+            </section>
+
+            <section class="card">
+                <h2>Key Concepts You'll Master</h2>
+
+                <h3>1. GTM Container</h3>
+                <p>
+                    A container is like a "box" that holds all your tags, triggers, and variables.
+                    You'll learn how to set up and install a GTM container on your website.
+                </p>
+
+                <h3>2. Tags</h3>
+                <p>
+                    Tags are snippets of code that execute on your website. Common examples include
+                    Google Analytics tracking codes, Facebook Pixel, or custom JavaScript. You'll
+                    learn how to create and configure different types of tags.
+                </p>
+
+                <h3>3. Triggers</h3>
+                <p>
+                    Triggers define when tags should fire. For example, "fire this tag when a user
+                    clicks the submit button" or "fire on every page load." You'll master different
+                    trigger types and conditions.
+                </p>
+
+                <h3>4. Variables</h3>
+                <p>
+                    Variables are dynamic values that GTM can capture and use. Examples include the
+                    current page URL, the text of a clicked button, or custom data you define. You'll
+                    learn built-in variables and how to create custom ones.
+                </p>
+
+                <h3>5. dataLayer</h3>
+                <p>
+                    The dataLayer is a JavaScript array that acts as a communication channel between
+                    your website and GTM. You'll learn how to push custom events and data to the
+                    dataLayer for GTM to consume.
+                </p>
+
+                <h3>6. Consent Mode</h3>
+                <p>
+                    Google Consent Mode v2 is essential for privacy compliance (GDPR, CCPA, etc.).
+                    You'll implement it correctly from the start, ensuring your tracking respects
+                    user privacy choices.
+                </p>
+            </section>
+
+            <section class="card">
+                <h2>Why GTM Matters</h2>
+                <ul>
+                    <li><strong>Marketing Agility:</strong> Add/update tracking without developer involvement</li>
+                    <li><strong>Reduced Errors:</strong> Test tags before publishing to production</li>
+                    <li><strong>Better Performance:</strong> GTM loads tags asynchronously</li>
+                    <li><strong>Version Control:</strong> Roll back changes if something breaks</li>
+                    <li><strong>One Interface:</strong> Manage all your tags in a single place</li>
+                </ul>
+            </section>
+
+            <div class="text-center mt-2">
+                <a href="products.html" class="btn">Explore Products Page</a>
+                <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://github.com" target="_blank">GitHub</a></li>
+            </ul>
+            <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/dataLayer.js"></script>
+    <script src="js/consent.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

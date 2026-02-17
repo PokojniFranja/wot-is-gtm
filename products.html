@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Demo products page for testing GTM click tracking and e-commerce events">
+    <title>Products - GTM Learning Project</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+        GTM Container Snippet will go here in <head>
+        We'll add this when we set up GTM in a later step
+    -->
+</head>
+<body>
+    <!--
+        GTM noscript snippet will go here (right after opening <body>)
+        This is a fallback for users with JavaScript disabled
+    -->
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GTM Learning</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h1>Demo Products</h1>
+            <p>
+                This page is designed for testing GTM click tracking, button interactions,
+                and e-commerce-like events. Each product card has interactive elements we
+                can track using GTM.
+            </p>
+
+            <!-- Product Grid -->
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <h3>GTM Essentials Course</h3>
+                    <p>Learn the fundamentals of Google Tag Manager from scratch.</p>
+                    <div class="product-price">$49</div>
+                    <button class="btn" data-product-id="course-essentials" data-product-name="GTM Essentials Course" data-product-price="49">
+                        Add to Cart
+                    </button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <h3>Advanced GA4 Tracking</h3>
+                    <p>Master Google Analytics 4 event tracking and custom dimensions.</p>
+                    <div class="product-price">$79</div>
+                    <button class="btn" data-product-id="course-ga4" data-product-name="Advanced GA4 Tracking" data-product-price="79">
+                        Add to Cart
+                    </button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <h3>Consent Mode Implementation</h3>
+                    <p>Implement Google Consent Mode v2 for privacy compliance.</p>
+                    <div class="product-price">$39</div>
+                    <button class="btn" data-product-id="course-consent" data-product-name="Consent Mode Implementation" data-product-price="39">
+                        Add to Cart
+                    </button>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <h3>E-commerce Tracking Bundle</h3>
+                    <p>Complete guide to tracking online store events and conversions.</p>
+                    <div class="product-price">$99</div>
+                    <button class="btn" data-product-id="bundle-ecommerce" data-product-name="E-commerce Tracking Bundle" data-product-price="99">
+                        Add to Cart
+                    </button>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <h3>Custom Variables Workshop</h3>
+                    <p>Learn to create custom JavaScript variables for complex tracking.</p>
+                    <div class="product-price">$59</div>
+                    <button class="btn" data-product-id="workshop-variables" data-product-name="Custom Variables Workshop" data-product-price="59">
+                        Add to Cart
+                    </button>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <h3>Debugging & Testing Guide</h3>
+                    <p>Use GTM Preview Mode and Tag Assistant like a pro.</p>
+                    <div class="product-price">$29</div>
+                    <button class="btn" data-product-id="guide-debugging" data-product-name="Debugging & Testing Guide" data-product-price="29">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <section class="card mt-2">
+                <h2>Why This Page Matters for GTM Learning</h2>
+                <p>
+                    Product pages are perfect for learning GTM because they have rich user
+                    interactions we want to track:
+                </p>
+                <ul>
+                    <li><strong>Button Clicks:</strong> Track "Add to Cart" interactions</li>
+                    <li><strong>Product Data:</strong> Capture product name, ID, and price using data attributes</li>
+                    <li><strong>E-commerce Events:</strong> Send product view and add-to-cart events to GA4</li>
+                    <li><strong>Custom Variables:</strong> Extract data from data-* attributes</li>
+                    <li><strong>Enhanced E-commerce:</strong> Track full shopping funnel (view → add → purchase)</li>
+                </ul>
+                <p>
+                    Notice how each "Add to Cart" button has <code>data-*</code> attributes.
+                    These are custom HTML attributes that GTM can read using variables. We'll
+                    use them to capture product details when users interact with buttons.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://github.com" target="_blank">GitHub</a></li>
+            </ul>
+            <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/dataLayer.js"></script>
+    <script src="js/consent.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Product Page Specific JavaScript -->
+    <script>
+        // Add click event listeners to all "Add to Cart" buttons
+        // Later we'll push this data to the dataLayer for GTM to track
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.product-card .btn');
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Get product data from button's data attributes
+                    const productId = this.getAttribute('data-product-id');
+                    const productName = this.getAttribute('data-product-name');
+                    const productPrice = this.getAttribute('data-product-price');
+
+                    // Log to console (we'll replace this with dataLayer push later)
+                    console.log('Add to Cart clicked:', {
+                        id: productId,
+                        name: productName,
+                        price: productPrice
+                    });
+
+                    // Show user feedback
+                    showNotification(`Added "${productName}" to cart!`);
+
+                    /**
+                     * When we implement GTM, we'll push this event to the dataLayer:
+                     *
+                     * window.dataLayer.push({
+                     *     'event': 'add_to_cart',
+                     *     'ecommerce': {
+                     *         'items': [{
+                     *             'item_id': productId,
+                     *             'item_name': productName,
+                     *             'price': productPrice,
+                     *             'quantity': 1
+                     *         }]
+                     *     }
+                     * });
+                     */
+                });
+            });
+        });
+    </script>
+</body>
+</html>

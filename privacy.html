@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy policy and consent information for GTM learning project">
+    <title>Privacy Policy - GTM Learning Project</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+        GTM Container Snippet will go here in <head>
+        We'll add this when we set up GTM in a later step
+    -->
+</head>
+<body>
+    <!--
+        GTM noscript snippet will go here (right after opening <body>)
+        This is a fallback for users with JavaScript disabled
+    -->
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GTM Learning</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p><em>Last updated: February 17, 2026</em></p>
+
+            <section class="card">
+                <h2>About This Demo Site</h2>
+                <p>
+                    This is a learning and demonstration project for Google Tag Manager.
+                    No real user data is collected or stored. This privacy policy exists
+                    to help you understand how privacy and consent work in the context of
+                    web analytics and tracking.
+                </p>
+            </section>
+
+            <section class="card">
+                <h2>Understanding Web Tracking & Privacy</h2>
+                <p>
+                    When you visit most websites, they use tracking technologies (cookies,
+                    pixels, tags) to collect information about how you interact with the site.
+                    This data helps website owners understand user behavior and improve their sites.
+                </p>
+                <p>
+                    However, privacy regulations like GDPR (Europe) and CCPA (California) require
+                    websites to get user consent before setting certain types of tracking cookies.
+                </p>
+            </section>
+
+            <section class="card">
+                <h2>What is Google Consent Mode?</h2>
+                <p>
+                    Google Consent Mode v2 is a framework that allows Google tags (like Google
+                    Analytics, Google Ads) to adjust their behavior based on user consent choices.
+                </p>
+                <p>Key concepts:</p>
+                <ul>
+                    <li>
+                        <strong>Default Denied:</strong> Tags start in a "denied" state where they
+                        don't set cookies or collect personal data until the user gives consent.
+                    </li>
+                    <li>
+                        <strong>Consent Types:</strong> Different types of consent (analytics,
+                        advertising, functionality, personalization) can be granted separately.
+                    </li>
+                    <li>
+                        <strong>Cookieless Pings:</strong> Even without consent, Google can receive
+                        anonymous aggregated data for basic measurement (no cookies, no personal data).
+                    </li>
+                    <li>
+                        <strong>Consent Signals:</strong> Your consent choices are signaled to Google's
+                        servers so they know how to handle your data.
+                    </li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>How We'll Implement Consent Mode</h2>
+                <p>
+                    When we add GTM to this site, we'll implement Consent Mode properly:
+                </p>
+                <ol>
+                    <li>
+                        <strong>Set Default State:</strong> Before GTM loads, we'll set all consent
+                        types to "denied" by default.
+                    </li>
+                    <li>
+                        <strong>Show Consent Banner:</strong> Display a banner asking users to accept
+                        or customize their cookie preferences.
+                    </li>
+                    <li>
+                        <strong>Update Consent:</strong> When users make a choice, we'll update the
+                        consent state and GTM will adjust tag behavior accordingly.
+                    </li>
+                    <li>
+                        <strong>Store Preferences:</strong> Save the user's choice in localStorage
+                        so they don't see the banner on every page load.
+                    </li>
+                    <li>
+                        <strong>Respect Choices:</strong> Ensure all tags honor the consent settings.
+                    </li>
+                </ol>
+            </section>
+
+            <section class="card">
+                <h2>Consent Mode Implementation Code</h2>
+                <p>
+                    Here's a preview of what the Consent Mode implementation looks like
+                    (we'll build this in <code>consent.js</code>):
+                </p>
+                <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow-x: auto;"><code>// Set default consent state (denied) before GTM loads
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'functionality_storage': 'denied',
+  'personalization_storage': 'denied',
+  'security_storage': 'granted', // Usually always granted
+  'wait_for_update': 500 // Wait 500ms for user choice
+});
+
+// When user accepts, update consent
+gtag('consent', 'update', {
+  'ad_storage': 'granted',
+  'analytics_storage': 'granted'
+  // ... etc
+});</code></pre>
+            </section>
+
+            <section class="card">
+                <h2>Best Practices for Privacy-Compliant Tracking</h2>
+                <ul>
+                    <li>Always implement consent BEFORE loading tracking tags</li>
+                    <li>Use "default denied" approach - better to ask permission than forgiveness</li>
+                    <li>Never send PII (personally identifiable information) to analytics</li>
+                    <li>Provide clear, honest information about what you track and why</li>
+                    <li>Give users an easy way to change their consent preferences</li>
+                    <li>Respect "Do Not Track" signals when possible</li>
+                    <li>Keep only the data you actually need</li>
+                    <li>Use Google's Consent Mode to ensure compliance across Google products</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>Data We Will NOT Collect</h2>
+                <p>This is a demo site, so we won't collect real data, but it's important to know
+                   what you should NOT track in production:</p>
+                <ul>
+                    <li>Email addresses</li>
+                    <li>Names</li>
+                    <li>Phone numbers</li>
+                    <li>Physical addresses</li>
+                    <li>Social security numbers or government IDs</li>
+                    <li>Financial information</li>
+                    <li>Health information</li>
+                    <li>Any other PII without explicit consent and proper security</li>
+                </ul>
+            </section>
+
+            <div class="text-center mt-2">
+                <a href="index.html" class="btn">Back to Home</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://github.com" target="_blank">GitHub</a></li>
+            </ul>
+            <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/dataLayer.js"></script>
+    <script src="js/consent.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

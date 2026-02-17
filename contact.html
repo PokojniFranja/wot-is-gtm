@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact form for testing GTM form submission tracking">
+    <title>Contact - GTM Learning Project</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+        GTM Container Snippet will go here in <head>
+        We'll add this when we set up GTM in a later step
+    -->
+</head>
+<body>
+    <!--
+        GTM noscript snippet will go here (right after opening <body>)
+        This is a fallback for users with JavaScript disabled
+    -->
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GTM Learning</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>
+                This contact form is designed for testing GTM form submission tracking.
+                We'll learn how to track when users submit forms and capture form data.
+            </p>
+
+            <!-- Contact Form -->
+            <section class="card">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm" name="contact_form">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            placeholder="John Doe"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="john@example.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            required
+                            placeholder="What's this about?"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            required
+                            placeholder="Tell us what you're thinking..."
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </section>
+
+            <section class="card">
+                <h2>Why This Page Matters for GTM Learning</h2>
+                <p>
+                    Form tracking is one of the most important use cases for GTM. Forms are
+                    conversion points - they're where users take meaningful actions on your site.
+                </p>
+                <p>Here's what we'll learn to track on this page:</p>
+                <ul>
+                    <li><strong>Form Submissions:</strong> Trigger tags when the form is successfully submitted</li>
+                    <li><strong>Form Data:</strong> Capture which fields were filled out (without capturing PII)</li>
+                    <li><strong>Form Abandonment:</strong> Track when users start but don't complete forms</li>
+                    <li><strong>Validation Errors:</strong> Monitor if users encounter errors</li>
+                    <li><strong>Conversion Events:</strong> Send form submission as a conversion to GA4</li>
+                </ul>
+                <p>
+                    <strong>Privacy Note:</strong> In a real implementation, you should NOT send
+                    personally identifiable information (PII) like email addresses or names to
+                    Google Analytics. We'll learn how to track that a form was submitted without
+                    capturing the actual user data.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://github.com" target="_blank">GitHub</a></li>
+            </ul>
+            <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/dataLayer.js"></script>
+    <script src="js/consent.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script>
+        // Handle form submission
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+
+            contactForm.addEventListener('submit', function(event) {
+                // Prevent actual form submission (this is just a demo)
+                event.preventDefault();
+
+                // Get form data (for demonstration - we won't send PII to analytics)
+                const formData = {
+                    formName: 'contact_form',
+                    formId: 'contactForm',
+                    // Note: In real GTM implementation, we would NOT include these values
+                    // We would only track that the form was submitted, not the actual data
+                };
+
+                // Log to console (we'll replace this with dataLayer push later)
+                console.log('Form submitted:', formData);
+
+                // Show success message
+                showNotification('Thank you! Your message has been sent.');
+
+                // Reset form
+                contactForm.reset();
+
+                /**
+                 * When we implement GTM, we'll push a form submission event:
+                 *
+                 * window.dataLayer.push({
+                 *     'event': 'form_submit',
+                 *     'formName': 'contact_form',
+                 *     'formId': 'contactForm',
+                 *     'formDestination': window.location.pathname
+                 *     // NO PII - just metadata about the form itself
+                 * });
+                 *
+                 * This allows us to track that a contact form was submitted
+                 * without violating user privacy or analytics terms of service.
+                 */
+            });
+
+            // Optional: Track form starts (when user focuses first field)
+            const formInputs = contactForm.querySelectorAll('input, textarea');
+            let formStartTracked = false;
+
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!formStartTracked) {
+                        formStartTracked = true;
+                        console.log('User started filling out contact form');
+
+                        /**
+                         * In GTM implementation, push form_start event:
+                         *
+                         * window.dataLayer.push({
+                         *     'event': 'form_start',
+                         *     'formName': 'contact_form'
+                         * });
+                         */
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
