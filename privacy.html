@@ -10,15 +10,102 @@
     <link rel="stylesheet" href="css/style.css">
 
     <!--
-        GTM Container Snippet will go here in <head>
-        We'll add this when we set up GTM in a later step
+        ============================================================================
+        STEP 1: Set Default Consent State (BEFORE GTM loads)
+        ============================================================================
+
+        CRITICAL: This MUST come BEFORE the GTM script!
+
+        Why? Because GTM needs to know the consent state from the moment it loads.
+        By setting everything to 'denied' first, we ensure that no tracking cookies
+        are set or personal data collected until the user explicitly consents.
+
+        This is the "default denied" approach required by GDPR and recommended
+        by Google for Consent Mode v2.
+
+        What each consent type means:
+        - ad_storage: Enables storage (like cookies) for advertising purposes
+        - ad_user_data: Enables sending user data to Google for advertising
+        - ad_personalization: Enables personalized advertising (e.g., remarketing)
+        - analytics_storage: Enables storage for analytics (like cookies)
+        - functionality_storage: Enables storage for site functionality
+        - personalization_storage: Enables storage for personalization (e.g., video recommendations)
+        - security_storage: Usually always granted for security features like fraud prevention
+
+        wait_for_update: Tells GTM to wait up to 500ms for a consent update
+        before making decisions. This gives our consent banner time to load.
     -->
+    <script>
+        // Initialize the dataLayer (GTM's communication channel)
+        window.dataLayer = window.dataLayer || [];
+
+        // Define gtag function - this is how we communicate consent to Google
+        function gtag(){dataLayer.push(arguments);}
+
+        // Set default consent to DENIED for all types
+        // This is the privacy-first approach - no tracking without explicit consent
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted', // Security features are usually always allowed
+            'wait_for_update': 500 // Wait 500ms for consent banner to update consent
+        });
+
+        console.log('✅ Consent defaults set to DENIED - GTM will respect privacy until user consents');
+    </script>
+
+    <!--
+        ============================================================================
+        STEP 2: Google Tag Manager Container
+        ============================================================================
+
+        NOW we load GTM. Since we've already set the default consent state above,
+        GTM knows to operate in "denied" mode until the user grants permission.
+
+        Container ID: GTM-WNS3P8L9
+
+        What this script does:
+        1. Creates a dataLayer array (if not already created)
+        2. Pushes the GTM start time to dataLayer
+        3. Asynchronously loads the GTM library from Google's servers
+        4. Inserts the GTM script into the page
+
+        The 'async' flag means GTM loads without blocking the rest of your page.
+    -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WNS3P8L9');</script>
+    <!-- End Google Tag Manager -->
 </head>
 <body>
     <!--
-        GTM noscript snippet will go here (right after opening <body>)
-        This is a fallback for users with JavaScript disabled
+        ============================================================================
+        STEP 3: GTM Noscript Fallback
+        ============================================================================
+
+        This MUST be placed immediately after the opening <body> tag.
+
+        Why? This is a fallback for users who have JavaScript disabled in their browser.
+        Without JavaScript, the GTM script above won't run, so this <iframe> provides
+        a basic way for GTM to still function (with limited capabilities).
+
+        In practice, most tracking won't work without JavaScript, but this ensures
+        GTM can at least register a basic page view.
+
+        The iframe is hidden (display:none, visibility:hidden, 0px dimensions) so
+        it doesn't affect your page layout.
     -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNS3P8L9"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header & Navigation -->
     <header>
