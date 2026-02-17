@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Order confirmed - demo thank you page for GTM purchase tracking">
+    <title>Order Confirmed - GTM Learning Project</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+        ============================================================================
+        STEP 1: Set Default Consent State (BEFORE GTM loads)
+        ============================================================================
+        Same pattern as every other page - default denied, wait for consent.js.
+    -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+        });
+
+        console.log('Consent defaults set to DENIED on thank you page');
+    </script>
+
+    <!--
+        ============================================================================
+        STEP 2: Google Tag Manager Container
+        ============================================================================
+        Container ID: GTM-WNS3P8L9
+    -->
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WNS3P8L9');</script>
+    <!-- End Google Tag Manager -->
+
+    <style>
+        /*
+            Styles specific to the thank you page.
+            Kept inline here so the page is self-contained and easy to understand.
+        */
+
+        /* Green success banner at the top of the page */
+        .thankyou-hero {
+            background-color: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .thankyou-hero .success-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .thankyou-hero h1 {
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+
+        .thankyou-hero p {
+            color: #047857;
+            margin: 0;
+        }
+
+        /* Transaction ID badge */
+        .transaction-id {
+            display: inline-block;
+            background-color: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 0.25rem 0.75rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #374151;
+            margin-top: 0.75rem;
+        }
+
+        /* Order summary table */
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background-color: #f9fafb;
+            border-bottom: 2px solid #e5e7eb;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .order-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: middle;
+        }
+
+        .order-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .order-table .item-name {
+            font-weight: 600;
+        }
+
+        .order-table .item-id {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            font-family: 'Courier New', monospace;
+        }
+
+        .order-table .col-price,
+        .order-table .col-qty,
+        .order-table .col-subtotal {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        /* Order total row */
+        .order-total-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem 1rem 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        /* Empty order state (user navigated directly to this page) */
+        .no-order {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #6b7280;
+        }
+
+        .no-order a {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        /*
+            GTM Note box - explains what just happened in GTM.
+            Useful for the learning context of this project.
+        */
+        .gtm-note {
+            background-color: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-left: 4px solid #f59e0b;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gtm-note h3 {
+            color: #92400e;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .gtm-note p,
+        .gtm-note li {
+            color: #78350f;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gtm-note code {
+            background-color: #fef3c7;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+
+        .gtm-note ul {
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+
+        /* Next steps action buttons */
+        .thankyou-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNS3P8L9" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GTM Prčkanje</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <!-- Basket link with item counter badge -->
+                    <li>
+                        <a href="basket.html" class="basket-link">
+                            Basket
+                            <span id="basket-count" class="basket-badge" style="display:none;">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+
+            <!-- Success Banner -->
+            <div class="thankyou-hero">
+                <div class="success-icon">&#10003;</div>
+                <h1>Order Confirmed!</h1>
+                <p>Your fake purchase was successful. No real money was spent.</p>
+                <div id="transaction-id-display" class="transaction-id" style="display:none;"></div>
+            </div>
+
+            <!--
+                ORDER SUMMARY CARD
+                Populated by the inline script at the bottom of this file.
+                Reads from localStorage key 'gtm_last_order' (set by basket.js).
+            -->
+            <div class="card">
+                <h2>Order Summary</h2>
+                <div id="order-summary">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!--
+                ============================================================================
+                GTM LEARNING NOTE
+                ============================================================================
+
+                This box explains what just happened in the dataLayer so you can
+                connect what you see here to what you see in GTM / GA4.
+            -->
+            <div class="gtm-note">
+                <h3>What just happened in GTM?</h3>
+                <p>Before you were redirected to this page, <code>basket.js</code> pushed two events:</p>
+                <ul>
+                    <li><code>begin_checkout</code> — fired when you clicked "Proceed to Checkout"</li>
+                    <li><code>purchase</code> — fired when you submitted the checkout form</li>
+                </ul>
+                <p style="margin-top: 0.75rem;">
+                    The <code>purchase</code> event is the most important ecommerce event in GA4.
+                    It includes the <strong>transaction_id</strong>, <strong>value</strong>,
+                    <strong>currency</strong>, and the full <strong>items</strong> array.
+                    Open the debug panel (orange button, bottom right) to see the raw dataLayer pushes.
+                </p>
+                <p>
+                    In GTM, you would create a trigger on <code>Event equals purchase</code> and attach
+                    a GA4 Event tag to forward this data to Google Analytics.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="thankyou-actions">
+                <a href="products.html" class="btn">Shop Again</a>
+                <a href="basket.html" class="btn btn-secondary">View Basket</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://github.com/PokojniFranja/wot-is-gtm" target="_blank">GitHub</a></li>
+            </ul>
+            <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/dataLayer.js"></script>
+    <script src="js/consent.js"></script>
+    <script src="js/debug.js"></script>
+    <script src="js/basket.js"></script>
+    <script src="js/main.js"></script>
+
+    <!--
+        ============================================================================
+        THANK YOU PAGE - Inline Script
+        ============================================================================
+
+        This script runs after basket.js has loaded (which provides getLastOrder()
+        and clearLastOrder()).
+
+        It does three things:
+          1. Reads the saved order from localStorage
+          2. Renders the order summary table into #order-summary
+          3. Pushes a 'thankyou_page_view' custom event to dataLayer
+
+        WHY push 'thankyou_page_view'?
+          In real stores this page is often used as a conversion trigger.
+          For example, a Google Ads conversion tag fires when this specific
+          page is viewed after a purchase. Using a custom event (rather than
+          just the URL) is more reliable when the URL can change.
+
+          In GTM you would create a trigger: Custom Event = thankyou_page_view
+          and attach tags like Google Ads Conversion or GA4 Event to it.
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // ---------------------------------------------------------------
+            // 1. Read the order from localStorage
+            // ---------------------------------------------------------------
+            // getLastOrder() is defined in basket.js and returns the order
+            // object saved by pushPurchaseEvent() just before the redirect.
+            var order = getLastOrder();
+
+            var summaryContainer = document.getElementById('order-summary');
+            var transactionDisplay = document.getElementById('transaction-id-display');
+
+            if (!order) {
+                // User navigated directly to this page without completing a purchase.
+                // Show a friendly message instead of a broken order summary.
+                summaryContainer.innerHTML =
+                    '<div class="no-order">'
+                    + '<p>No order found. Did you navigate here directly?</p>'
+                    + '<p>Go to the <a href="products.html">products page</a> and complete a purchase to test the full funnel.</p>'
+                    + '</div>';
+
+                console.log('thankyou.html: No order found in localStorage (gtm_last_order is empty).');
+                return;
+            }
+
+            // ---------------------------------------------------------------
+            // 2. Display the Transaction ID
+            // ---------------------------------------------------------------
+            if (transactionDisplay) {
+                transactionDisplay.textContent = 'Transaction ID: ' + order.transaction_id;
+                transactionDisplay.style.display = 'inline-block';
+            }
+
+            // ---------------------------------------------------------------
+            // 3. Render the order summary table
+            // ---------------------------------------------------------------
+            var html = '';
+
+            html += '<table class="order-table">';
+            html += '  <thead>';
+            html += '    <tr>';
+            html += '      <th>Product</th>';
+            html += '      <th class="col-price">Unit Price</th>';
+            html += '      <th class="col-qty">Qty</th>';
+            html += '      <th class="col-subtotal">Subtotal</th>';
+            html += '    </tr>';
+            html += '  </thead>';
+            html += '  <tbody>';
+
+            order.items.forEach(function (item) {
+                var subtotal = Math.round(item.price * item.quantity * 100) / 100;
+                html += '  <tr>';
+                html += '    <td>';
+                html += '      <div class="item-name">' + escapeHtml(item.item_name) + '</div>';
+                html += '      <div class="item-id">' + escapeHtml(item.item_id) + '</div>';
+                html += '    </td>';
+                html += '    <td class="col-price">' + item.price.toFixed(2) + ' EUR</td>';
+                html += '    <td class="col-qty">' + item.quantity + '</td>';
+                html += '    <td class="col-subtotal"><strong>' + subtotal.toFixed(2) + ' EUR</strong></td>';
+                html += '  </tr>';
+            });
+
+            html += '  </tbody>';
+            html += '</table>';
+
+            html += '<div class="order-total-row">';
+            html += '  <span>Order Total:</span>';
+            html += '  <span>' + order.value.toFixed(2) + ' EUR</span>';
+            html += '</div>';
+
+            summaryContainer.innerHTML = html;
+
+            // ---------------------------------------------------------------
+            // 4. Push 'thankyou_page_view' to dataLayer
+            // ---------------------------------------------------------------
+            //
+            // WHY: In real implementations, the thank you page URL is used as
+            //      a trigger for Google Ads and GA4 conversion events.
+            //      Using a custom dataLayer event is more robust than URL-matching
+            //      because the URL might change or include query strings.
+            //
+            // WHAT TO DO IN GTM:
+            //   - Create a Trigger: Custom Event = thankyou_page_view
+            //   - Attach it to a GA4 Event tag (optional, since purchase already fired)
+            //   - Or use it to fire a Google Ads Conversion tag
+            //
+            // The event includes the transaction_id so you can deduplicate
+            // (i.e., make sure you don't count the same sale twice if the user
+            // refreshes the page).
+            //
+            window.dataLayer.push({
+                'event': 'thankyou_page_view',
+                'transaction_id': order.transaction_id,
+                'order_value': order.value,
+                'order_currency': order.currency,
+                'order_items_count': order.items.length
+            });
+
+            console.log('dataLayer: Pushed thankyou_page_view event for transaction', order.transaction_id);
+
+            // ---------------------------------------------------------------
+            // 5. Clear the order from localStorage
+            // ---------------------------------------------------------------
+            // We've rendered it and pushed the event, so we can clean up.
+            // This prevents stale order data from persisting between sessions.
+            // clearLastOrder() is defined in basket.js.
+            clearLastOrder();
+
+            console.log('thankyou.html: Order data cleared from localStorage (gtm_last_order removed).');
+        });
+
+        /**
+         * Simple HTML escape to prevent XSS when rendering order item names.
+         * @param {string} str
+         * @returns {string}
+         */
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.textContent = String(str);
+            return div.innerHTML;
+        }
+    </script>
+
+</body>
+
+</html>
