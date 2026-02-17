@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shopping basket - demo page for GTM ecommerce tracking">
+    <title>Basket - GTM Learning Project</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+        ============================================================================
+        STEP 1: Set Default Consent State (BEFORE GTM loads)
+        ============================================================================
+
+        CRITICAL: This MUST come BEFORE the GTM script!
+
+        Why? Because GTM needs to know the consent state from the moment it loads.
+        By setting everything to 'denied' first, we ensure that no tracking cookies
+        are set or personal data collected until the user explicitly consents.
+
+        This is the "default denied" approach required by GDPR and recommended
+        by Google for Consent Mode v2.
+    -->
+    <script>
+        // Initialize the dataLayer (GTM's communication channel)
+        window.dataLayer = window.dataLayer || [];
+
+        // Define gtag function - this is how we communicate consent to Google
+        function gtag() { dataLayer.push(arguments); }
+
+        // Set default consent to DENIED for all types
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+        });
+
+        console.log('Consent defaults set to DENIED - GTM will respect privacy until user consents');
+    </script>
+
+    <!--
+        ============================================================================
+        STEP 2: Google Tag Manager Container
+        ============================================================================
+        Container ID: GTM-WNS3P8L9
+    -->
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WNS3P8L9');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNS3P8L9" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">GTM Prckanje</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <!-- Basket link with item counter badge -->
+                    <li>
+                        <a href="basket.html" class="basket-link">
+                            Basket
+                            <span id="basket-count" class="basket-badge" style="display:none;">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h1>Your Basket</h1>
+
+            <!--
+                The basket contents are rendered dynamically by js/basket-page.js.
+                It reads from localStorage (key: 'gtm_basket') and builds the HTML.
+            -->
+            <div id="basket-contents">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <!--
+                ============================================================================
+                CHECKOUT FORM
+                ============================================================================
+
+                This is a FAKE checkout form for demonstration purposes.
+                No real data is submitted anywhere.
+
+                When "Complete Purchase" is clicked:
+                1. A begin_checkout event is pushed to dataLayer (from basket.js)
+                2. The purchase event is pushed to dataLayer (from basket.js)
+                3. The user is redirected to thankyou.html
+
+                In a real store, this form would submit to a payment processor.
+                We are only interested in the GTM/dataLayer events here.
+            -->
+            <div id="checkout-section" class="card" style="display:none;">
+                <h2>Checkout</h2>
+                <p class="checkout-note">
+                    This is a fake checkout form for testing GTM events.
+                    No real payment is processed. Fill in anything you like.
+                </p>
+
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label for="checkout-name">Full Name</label>
+                        <input type="text" id="checkout-name" name="name" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkout-email">Email Address</label>
+                        <input type="email" id="checkout-email" name="email" required placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkout-card">Card Number (fake)</label>
+                        <input type="text" id="checkout-card" name="card" required
+                            placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+
+                    <button type="submit" class="btn">Complete Purchase</button>
+                    <button type="button" id="cancel-checkout-btn" class="btn btn-secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://github.com/PokojniFranja/wot-is-gtm" target="_blank">GitHub</a></li>
+            </ul>
+            <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/dataLayer.js"></script>
+    <script src="js/consent.js"></script>
+    <script src="js/debug.js"></script>
+    <script src="js/basket.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- Basket Page Specific JavaScript -->
+    <script src="js/basket-page.js"></script>
+</body>
+
+</html>

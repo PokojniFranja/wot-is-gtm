@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Demo products page for testing GTM click tracking and e-commerce events">
+    <meta name="description" content="Demo products page for testing GTM ecommerce tracking events">
     <title>Products - GTM Learning Project</title>
 
     <!-- CSS -->
@@ -40,7 +41,7 @@
         window.dataLayer = window.dataLayer || [];
 
         // Define gtag function - this is how we communicate consent to Google
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
 
         // Set default consent to DENIED for all types
         // This is the privacy-first approach - no tracking without explicit consent
@@ -55,7 +56,7 @@
             'wait_for_update': 500 // Wait 500ms for consent banner to update consent
         });
 
-        console.log('✅ Consent defaults set to DENIED - GTM will respect privacy until user consents');
+        console.log('Consent defaults set to DENIED - GTM will respect privacy until user consents');
     </script>
 
     <!--
@@ -67,50 +68,29 @@
         GTM knows to operate in "denied" mode until the user grants permission.
 
         Container ID: GTM-WNS3P8L9
-
-        What this script does:
-        1. Creates a dataLayer array (if not already created)
-        2. Pushes the GTM start time to dataLayer
-        3. Asynchronously loads the GTM library from Google's servers
-        4. Inserts the GTM script into the page
-
-        The 'async' flag means GTM loads without blocking the rest of your page.
     -->
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WNS3P8L9');</script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WNS3P8L9');</script>
     <!-- End Google Tag Manager -->
 </head>
+
 <body>
-    <!--
-        ============================================================================
-        STEP 3: GTM Noscript Fallback
-        ============================================================================
-
-        This MUST be placed immediately after the opening <body> tag.
-
-        Why? This is a fallback for users who have JavaScript disabled in their browser.
-        Without JavaScript, the GTM script above won't run, so this <iframe> provides
-        a basic way for GTM to still function (with limited capabilities).
-
-        In practice, most tracking won't work without JavaScript, but this ensures
-        GTM can at least register a basic page view.
-
-        The iframe is hidden (display:none, visibility:hidden, 0px dimensions) so
-        it doesn't affect your page layout.
-    -->
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNS3P8L9"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNS3P8L9" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header & Navigation -->
     <header>
         <div class="header-container">
-            <a href="index.html" class="logo">GTM Learning</a>
+            <a href="index.html" class="logo">GTM Prckanje</a>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -118,6 +98,13 @@
                     <li><a href="products.html">Products</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="privacy.html">Privacy</a></li>
+                    <!-- Basket link with item counter badge -->
+                    <li>
+                        <a href="basket.html" class="basket-link">
+                            Basket
+                            <span id="basket-count" class="basket-badge" style="display:none;">0</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -125,75 +112,128 @@
 
     <!-- Main Content -->
     <main>
-        <div class="container">
+        <div class="container-wide">
             <h1>Demo Products</h1>
             <p>
-                This page is designed for testing GTM click tracking, button interactions,
-                and e-commerce-like events. Each product card has interactive elements we
-                can track using GTM.
+                This page demonstrates GA4 ecommerce tracking. Each "Add to Basket" button
+                pushes an <code>add_to_cart</code> event to the dataLayer that GTM can capture
+                and forward to Google Analytics 4.
             </p>
 
-            <!-- Product Grid -->
+            <!--
+                ============================================================================
+                PRODUCT GRID
+                ============================================================================
+
+                Each product card has data-* attributes that store product information.
+                When the user clicks "Add to Basket", JavaScript reads these attributes
+                and passes them to the basket module, which then pushes the GA4 ecommerce
+                event to the dataLayer.
+
+                WHY data-* attributes?
+                - They keep product data in the HTML where it belongs
+                - JavaScript can easily read them with getAttribute()
+                - GTM can also read them using "Click Element" variables if needed
+                - Clean separation of concerns (HTML = data, JS = behavior)
+            -->
             <div class="product-grid">
+
                 <!-- Product 1 -->
-                <div class="product-card">
+                <div class="product-card"
+                    data-item-id="SKU-001"
+                    data-item-name="GTM Essentials Course"
+                    data-item-price="49.99">
+                    <div class="product-image-placeholder">GTM</div>
                     <h3>GTM Essentials Course</h3>
-                    <p>Learn the fundamentals of Google Tag Manager from scratch.</p>
-                    <div class="product-price">$49</div>
-                    <button class="btn" data-product-id="course-essentials" data-product-name="GTM Essentials Course" data-product-price="49">
-                        Add to Cart
-                    </button>
+                    <p class="product-description">Learn the fundamentals of Google Tag Manager from scratch. Covers containers, tags, triggers, and variables.</p>
+                    <div class="product-price">49.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
                 </div>
 
                 <!-- Product 2 -->
-                <div class="product-card">
+                <div class="product-card"
+                    data-item-id="SKU-002"
+                    data-item-name="Advanced GA4 Tracking"
+                    data-item-price="79.99">
+                    <div class="product-image-placeholder">GA4</div>
                     <h3>Advanced GA4 Tracking</h3>
-                    <p>Master Google Analytics 4 event tracking and custom dimensions.</p>
-                    <div class="product-price">$79</div>
-                    <button class="btn" data-product-id="course-ga4" data-product-name="Advanced GA4 Tracking" data-product-price="79">
-                        Add to Cart
-                    </button>
+                    <p class="product-description">Master Google Analytics 4 event tracking, custom dimensions, and advanced reporting techniques.</p>
+                    <div class="product-price">79.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
                 </div>
 
                 <!-- Product 3 -->
-                <div class="product-card">
+                <div class="product-card"
+                    data-item-id="SKU-003"
+                    data-item-name="Consent Mode Implementation"
+                    data-item-price="39.99">
+                    <div class="product-image-placeholder">GDPR</div>
                     <h3>Consent Mode Implementation</h3>
-                    <p>Implement Google Consent Mode v2 for privacy compliance.</p>
-                    <div class="product-price">$39</div>
-                    <button class="btn" data-product-id="course-consent" data-product-name="Consent Mode Implementation" data-product-price="39">
-                        Add to Cart
-                    </button>
+                    <p class="product-description">Implement Google Consent Mode v2 for GDPR and privacy compliance on any website.</p>
+                    <div class="product-price">39.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
                 </div>
 
                 <!-- Product 4 -->
-                <div class="product-card">
+                <div class="product-card"
+                    data-item-id="SKU-004"
+                    data-item-name="E-commerce Tracking Bundle"
+                    data-item-price="99.99">
+                    <div class="product-image-placeholder">SHOP</div>
                     <h3>E-commerce Tracking Bundle</h3>
-                    <p>Complete guide to tracking online store events and conversions.</p>
-                    <div class="product-price">$99</div>
-                    <button class="btn" data-product-id="bundle-ecommerce" data-product-name="E-commerce Tracking Bundle" data-product-price="99">
-                        Add to Cart
-                    </button>
+                    <p class="product-description">Complete guide to tracking online store events: product views, add to cart, checkout, and purchases.</p>
+                    <div class="product-price">99.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
                 </div>
 
                 <!-- Product 5 -->
-                <div class="product-card">
+                <div class="product-card"
+                    data-item-id="SKU-005"
+                    data-item-name="Custom Variables Workshop"
+                    data-item-price="59.99">
+                    <div class="product-image-placeholder">VAR</div>
                     <h3>Custom Variables Workshop</h3>
-                    <p>Learn to create custom JavaScript variables for complex tracking.</p>
-                    <div class="product-price">$59</div>
-                    <button class="btn" data-product-id="workshop-variables" data-product-name="Custom Variables Workshop" data-product-price="59">
-                        Add to Cart
-                    </button>
+                    <p class="product-description">Learn to create custom JavaScript variables, lookup tables, and RegEx tables in GTM.</p>
+                    <div class="product-price">59.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
                 </div>
 
                 <!-- Product 6 -->
-                <div class="product-card">
-                    <h3>Debugging & Testing Guide</h3>
-                    <p>Use GTM Preview Mode and Tag Assistant like a pro.</p>
-                    <div class="product-price">$29</div>
-                    <button class="btn" data-product-id="guide-debugging" data-product-name="Debugging & Testing Guide" data-product-price="29">
-                        Add to Cart
-                    </button>
+                <div class="product-card"
+                    data-item-id="SKU-006"
+                    data-item-name="Debugging and Testing Guide"
+                    data-item-price="29.99">
+                    <div class="product-image-placeholder">DBG</div>
+                    <h3>Debugging and Testing Guide</h3>
+                    <p class="product-description">Use GTM Preview Mode, Tag Assistant, and browser DevTools like a professional.</p>
+                    <div class="product-price">29.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
                 </div>
+
+                <!-- Product 7 -->
+                <div class="product-card"
+                    data-item-id="SKU-007"
+                    data-item-name="Server-Side GTM Setup"
+                    data-item-price="119.99">
+                    <div class="product-image-placeholder">SST</div>
+                    <h3>Server-Side GTM Setup</h3>
+                    <p class="product-description">Deploy server-side tagging with Google Tag Manager for improved data quality and privacy.</p>
+                    <div class="product-price">119.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card"
+                    data-item-id="SKU-008"
+                    data-item-name="Google Ads Conversion Tracking"
+                    data-item-price="69.99">
+                    <div class="product-image-placeholder">ADS</div>
+                    <h3>Google Ads Conversion Tracking</h3>
+                    <p class="product-description">Set up Google Ads conversion tracking, remarketing tags, and enhanced conversions via GTM.</p>
+                    <div class="product-price">69.99 EUR</div>
+                    <button class="btn add-to-basket-btn">Add to Basket</button>
+                </div>
+
             </div>
 
             <section class="card mt-2">
@@ -203,16 +243,15 @@
                     interactions we want to track:
                 </p>
                 <ul>
-                    <li><strong>Button Clicks:</strong> Track "Add to Cart" interactions</li>
-                    <li><strong>Product Data:</strong> Capture product name, ID, and price using data attributes</li>
-                    <li><strong>E-commerce Events:</strong> Send product view and add-to-cart events to GA4</li>
-                    <li><strong>Custom Variables:</strong> Extract data from data-* attributes</li>
-                    <li><strong>Enhanced E-commerce:</strong> Track full shopping funnel (view → add → purchase)</li>
+                    <li><strong>Button Clicks:</strong> Track "Add to Basket" interactions via the <code>add_to_cart</code> dataLayer event</li>
+                    <li><strong>Product Data:</strong> Capture product name, ID, and price using <code>data-*</code> attributes</li>
+                    <li><strong>E-commerce Events:</strong> Follow the GA4 ecommerce schema for add-to-cart events</li>
+                    <li><strong>Ecommerce Funnel:</strong> This page is step 1 of the funnel: Browse &rarr; Add to Cart &rarr; Checkout &rarr; Purchase</li>
                 </ul>
                 <p>
-                    Notice how each "Add to Cart" button has <code>data-*</code> attributes.
-                    These are custom HTML attributes that GTM can read using variables. We'll
-                    use them to capture product details when users interact with buttons.
+                    Open the <strong>GTM Debug</strong> panel (bottom-right) and click an "Add to Basket" button.
+                    You will see the <code>add_to_cart</code> event appear in the dataLayer log with the
+                    full ecommerce payload.
                 </p>
             </section>
         </div>
@@ -224,59 +263,27 @@
             <ul class="footer-links">
                 <li><a href="privacy.html">Privacy Policy</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="https://github.com" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/PokojniFranja/wot-is-gtm" target="_blank">GitHub</a></li>
             </ul>
             <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
         </div>
     </footer>
 
     <!-- JavaScript -->
+    <!-- Load order is important:
+         1. dataLayer.js - Initialize dataLayer array
+         2. consent.js - Handle consent banner and user choices
+         3. debug.js - Debug dashboard for learning
+         4. basket.js - Basket state management and ecommerce dataLayer events
+         5. main.js - General site functionality (notifications, nav highlighting) -->
     <script src="js/dataLayer.js"></script>
     <script src="js/consent.js"></script>
+    <script src="js/debug.js"></script>
+    <script src="js/basket.js"></script>
     <script src="js/main.js"></script>
 
-    <!-- Product Page Specific JavaScript -->
-    <script>
-        // Add click event listeners to all "Add to Cart" buttons
-        // Later we'll push this data to the dataLayer for GTM to track
-        document.addEventListener('DOMContentLoaded', function() {
-            const addToCartButtons = document.querySelectorAll('.product-card .btn');
-
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Get product data from button's data attributes
-                    const productId = this.getAttribute('data-product-id');
-                    const productName = this.getAttribute('data-product-name');
-                    const productPrice = this.getAttribute('data-product-price');
-
-                    // Log to console (we'll replace this with dataLayer push later)
-                    console.log('Add to Cart clicked:', {
-                        id: productId,
-                        name: productName,
-                        price: productPrice
-                    });
-
-                    // Show user feedback
-                    showNotification(`Added "${productName}" to cart!`);
-
-                    /**
-                     * When we implement GTM, we'll push this event to the dataLayer:
-                     *
-                     * window.dataLayer.push({
-                     *     'event': 'add_to_cart',
-                     *     'ecommerce': {
-                     *         'items': [{
-                     *             'item_id': productId,
-                     *             'item_name': productName,
-                     *             'price': productPrice,
-                     *             'quantity': 1
-                     *         }]
-                     *     }
-                     * });
-                     */
-                });
-            });
-        });
-    </script>
+    <!-- Products Page Specific JavaScript -->
+    <script src="js/products.js"></script>
 </body>
+
 </html>

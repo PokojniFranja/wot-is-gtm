@@ -299,3 +299,556 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==========================================================================
+   CONSENT BANNER STYLES
+   ========================================================================== */
+
+.consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.consent-banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.consent-banner-text h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.consent-banner-text p {
+    margin: 0 0 1.5rem 0;
+    color: var(--text-light);
+}
+
+.consent-banner-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.consent-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.consent-btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.consent-btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.consent-btn-secondary {
+    background-color: var(--text-light);
+    color: white;
+}
+
+.consent-btn-secondary:hover {
+    background-color: var(--text-color);
+}
+
+.consent-btn-tertiary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.consent-btn-tertiary:hover {
+    background-color: var(--bg-gray);
+}
+
+/* Consent Preferences (expandable section) */
+.consent-preferences {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.consent-preferences h4 {
+    margin: 0 0 0.5rem 0;
+}
+
+.consent-preferences-intro {
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.consent-preference-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--bg-gray);
+    border-radius: 6px;
+    align-items: flex-start;
+}
+
+.consent-preference-info {
+    flex: 1;
+}
+
+.consent-preference-info strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.consent-preference-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* Toggle Switch */
+.consent-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.consent-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.consent-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.consent-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.consent-toggle input:checked + .consent-toggle-slider {
+    background-color: var(--success-color);
+}
+
+.consent-toggle input:checked + .consent-toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.consent-preferences-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Cookie Settings Button (fixed bottom-left) */
+.cookie-settings-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    border: 2px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    z-index: 1000;
+}
+
+.cookie-settings-btn:hover {
+    background-color: var(--bg-gray);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   GTM DEBUG DASHBOARD STYLES
+   ========================================================================== */
+
+.gtm-debug-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff6b35;
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    transition: all 0.2s;
+    z-index: 1001;
+}
+
+.gtm-debug-btn:hover {
+    background-color: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+}
+
+.gtm-debug-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 600px;
+    max-width: 90vw;
+    height: 100vh;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+}
+
+.gtm-debug-header {
+    background-color: #2d2d2d;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ff6b35;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.gtm-debug-header h2 {
+    margin: 0;
+    color: #ff6b35;
+    font-size: 1.25rem;
+}
+
+.gtm-debug-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.2s;
+}
+
+.gtm-debug-close:hover {
+    color: #ff6b35;
+}
+
+.gtm-debug-content {
+    padding: 1.5rem;
+}
+
+.gtm-debug-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #333;
+}
+
+.gtm-debug-section:last-child {
+    border-bottom: none;
+}
+
+.gtm-debug-section h3 {
+    margin: 0 0 0.5rem 0;
+    color: #ff6b35;
+    font-size: 1.1rem;
+}
+
+.gtm-debug-help {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.gtm-debug-help .status-granted {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.gtm-debug-help .status-denied {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.gtm-debug-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.gtm-debug-btn-small {
+    background-color: #2d2d2d;
+    color: white;
+    border: 1px solid #444;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gtm-debug-btn-small:hover {
+    background-color: #3d3d3d;
+    border-color: #666;
+}
+
+.gtm-debug-btn-danger {
+    background-color: #ef4444;
+    border-color: #ef4444;
+}
+
+.gtm-debug-btn-danger:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+
+.gtm-debug-btn-warning {
+    background-color: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.gtm-debug-btn-warning:hover {
+    background-color: #d97706;
+    border-color: #d97706;
+}
+
+.gtm-debug-empty {
+    color: #666;
+    font-style: italic;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Consent State Grid */
+.consent-state-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.consent-state-item {
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.consent-state-item.status-granted {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.1);
+}
+
+.consent-state-item.status-denied {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.consent-icon {
+    font-size: 1.5rem;
+}
+
+.consent-state-info {
+    flex: 1;
+}
+
+.consent-state-info strong {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.consent-value {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-granted .consent-value {
+    background-color: #10b981;
+    color: white;
+}
+
+.status-denied .consent-value {
+    background-color: #ef4444;
+    color: white;
+}
+
+/* Cookies Table */
+.cookies-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cookies-table {
+    width: 100%;
+}
+
+.cookies-table-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    padding: 0.5rem;
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.cookies-table-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid #2d2d2d;
+    align-items: center;
+}
+
+.cookie-name {
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.cookie-value {
+    font-size: 0.85rem;
+}
+
+.cookie-value code {
+    color: #10b981;
+    background-color: #2d2d2d;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+}
+
+.cookie-info {
+    color: #999;
+    font-size: 0.75rem;
+}
+
+/* dataLayer Log */
+.datalayer-log {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.datalayer-event {
+    background-color: #2d2d2d;
+    border-left: 3px solid #444;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-radius: 4px;
+}
+
+.datalayer-event-important {
+    border-left-color: #ff6b35;
+    background-color: rgba(255, 107, 53, 0.1);
+}
+
+.datalayer-event-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.datalayer-event-header strong {
+    color: #ff6b35;
+}
+
+.datalayer-timestamp {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.datalayer-event-data {
+    margin: 0;
+    padding: 0.75rem;
+    background-color: #1a1a1a;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    overflow-x: auto;
+    color: #10b981;
+}
+
+/* Scrollbar styling for dark theme */
+.gtm-debug-panel::-webkit-scrollbar,
+.cookies-list::-webkit-scrollbar,
+.datalayer-log::-webkit-scrollbar {
+    width: 8px;
+}
+
+.gtm-debug-panel::-webkit-scrollbar-track,
+.cookies-list::-webkit-scrollbar-track,
+.datalayer-log::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.gtm-debug-panel::-webkit-scrollbar-thumb,
+.cookies-list::-webkit-scrollbar-thumb,
+.datalayer-log::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.gtm-debug-panel::-webkit-scrollbar-thumb:hover,
+.cookies-list::-webkit-scrollbar-thumb:hover,
+.datalayer-log::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Responsive adjustments for debug panel */
+@media (max-width: 768px) {
+    .gtm-debug-panel {
+        width: 100vw;
+    }
+
+    .consent-banner-buttons {
+        flex-direction: column;
+    }
+
+    .consent-preference-item {
+        flex-direction: column;
+    }
+
+    .cookies-table-header,
+    .cookies-table-row {
+        grid-template-columns: 1fr;
+    }
+}
