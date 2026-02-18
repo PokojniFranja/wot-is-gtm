@@ -852,3 +852,245 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==========================================================================
+   NAVIGATION BASKET LINK & BADGE
+   The basket link in the nav shows a cart icon, label, and item count badge.
+   The badge is hidden by default and shown via JS when items > 0.
+   ========================================================================== */
+
+/* Basket link container - uses flexbox to align icon, text, and badge */
+.basket-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+}
+
+/* The SVG cart icon inside the basket link */
+.basket-link .cart-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    /* Inherit the current text color so it matches nav link styling */
+    fill: currentColor;
+    transition: fill 0.2s;
+}
+
+/* Item count badge - a small circle overlapping the top-right of the icon */
+.basket-badge {
+    display: none; /* Hidden by default; JS shows it when count > 0 */
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background-color: #ef4444; /* Red badge for visibility */
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    padding: 0 4px;
+    /* Slight shadow to help badge stand out against any background */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   BASKET PAGE STYLES
+   Styles for the shopping cart table rendered by basket-page.js.
+   Uses a CSS Grid layout to create a clean, responsive table-like structure.
+   ========================================================================== */
+
+/* Main container for all basket rows - acts as the "table" wrapper */
+.basket-table {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden; /* Clips child borders to the rounded corners */
+    margin-bottom: 1.5rem;
+}
+
+/* Header row - column labels (Product, Price, Quantity, etc.) */
+.basket-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background-color: var(--bg-gray);
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Each item row in the basket */
+.basket-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+    transition: background-color 0.15s;
+}
+
+/* Subtle hover highlight on rows so the user can track across columns */
+.basket-row:hover {
+    background-color: var(--bg-gray);
+}
+
+/* Remove the bottom border from the last row (the table border handles it) */
+.basket-row:last-child {
+    border-bottom: none;
+}
+
+/* Column: Product name and SKU */
+.basket-col-product strong {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+/* Column: Price, Subtotal - right-aligned for numbers */
+.basket-col-price,
+.basket-col-subtotal {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.basket-col-subtotal strong {
+    color: var(--text-color);
+}
+
+/* Column: Quantity - centered with +/- controls */
+.basket-col-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Column: Action (remove button) - centered */
+.basket-col-action {
+    text-align: center;
+}
+
+/* Muted text style for SKU codes, secondary info */
+.text-muted {
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+/* Quantity adjustment buttons (+/-) */
+.qty-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+}
+
+.qty-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* The number between +/- buttons */
+.qty-value {
+    display: inline-block;
+    min-width: 28px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Remove button - styled as a subtle danger action */
+.btn-remove {
+    background: none;
+    border: 1px solid #fecaca; /* Light red border */
+    color: #dc2626; /* Red text */
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-remove:hover {
+    background-color: #dc2626;
+    color: white;
+    border-color: #dc2626;
+}
+
+/* Order total section below the basket table */
+.basket-total {
+    text-align: right;
+    padding: 1.25rem 1.25rem;
+    font-size: 1.25rem;
+    background-color: var(--bg-gray);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+/* Action buttons row (Continue Shopping + Proceed to Checkout) */
+.basket-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Responsive: stack basket columns on small screens */
+@media (max-width: 768px) {
+    /* Switch from grid to stacked layout on mobile */
+    .basket-header {
+        display: none; /* Hide column headers on mobile */
+    }
+
+    .basket-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+
+    /* On mobile, right-align overrides are removed so everything flows naturally */
+    .basket-col-price,
+    .basket-col-subtotal {
+        text-align: left;
+    }
+
+    .basket-col-quantity {
+        justify-content: flex-start;
+    }
+
+    .basket-col-action {
+        text-align: left;
+    }
+
+    /* Stack the action buttons vertically on mobile */
+    .basket-actions {
+        flex-direction: column;
+    }
+
+    .basket-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
