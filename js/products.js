@@ -17,6 +17,31 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+     // Collect all products from the page into an items array for GA4
+  var allCards = document.querySelectorAll('.product-card');
+  var itemList = [];
+  allCards.forEach(function(card, index) {
+      itemList.push({
+          'item_id':    card.getAttribute('data-item-id'),
+          'item_name':  card.getAttribute('data-item-name'),
+          'price':      parseFloat(card.getAttribute('data-item-price')),
+          'index':      index          // pozicija u listi (0-based)
+      });
+  });
+
+  window.dataLayer.push({ ecommerce: null }); // očisti staro
+  window.dataLayer.push({
+      'event': 'view_item_list',
+      'ecommerce': {
+          'item_list_id':   'products_page',
+          'item_list_name': 'Demo Products',
+          'currency':       'EUR',
+          'items':          itemList
+      }
+  });
+
+
+   
     // Find all "Add to Basket" buttons
     var buttons = document.querySelectorAll('.add-to-basket-btn');
 
