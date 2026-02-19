@@ -173,10 +173,11 @@ function addToBasket(product) {
             'currency': CURRENCY,
             'value': product.price,
             'items': [{
-                'item_name': product.item_name,
-                'item_id': product.item_id,
-                'price': product.price,
-                'quantity': 1
+                'item_name':     product.item_name,
+                'item_id':       product.item_id,
+                'price':         product.price,
+                'item_category': product.item_category,
+                'quantity':      1
             }]
         }
     });

@@ -22,10 +22,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var itemList = [];
   allCards.forEach(function(card, index) {
       itemList.push({
-          'item_id':    card.getAttribute('data-item-id'),
-          'item_name':  card.getAttribute('data-item-name'),
-          'price':      parseFloat(card.getAttribute('data-item-price')),
-          'index':      index          // pozicija u listi (0-based)
+          'item_id':       card.getAttribute('data-item-id'),
+          'item_name':     card.getAttribute('data-item-name'),
+          'price':         parseFloat(card.getAttribute('data-item-price')),
+          'item_category': card.getAttribute('data-item-category'),
+          'index':         index          // pozicija u listi (0-based)
       });
   });
 
@@ -61,9 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // These values will be passed to basket.js and eventually
             // included in the GA4 add_to_cart dataLayer push
             var product = {
-                item_id: card.getAttribute('data-item-id'),
-                item_name: card.getAttribute('data-item-name'),
-                price: parseFloat(card.getAttribute('data-item-price'))
+                item_id:       card.getAttribute('data-item-id'),
+                item_name:     card.getAttribute('data-item-name'),
+                price:         parseFloat(card.getAttribute('data-item-price')),
+                item_category: card.getAttribute('data-item-category')
             };
 
             // Validate that we got valid product data
