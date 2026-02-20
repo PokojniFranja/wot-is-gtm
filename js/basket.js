@@ -138,6 +138,7 @@ function addToBasket(product) {
         basket.push({
             item_id: product.item_id,
             item_name: product.item_name,
+            item_category: product.item_category || '',
             price: product.price,
             quantity: 1
         });
@@ -173,11 +174,11 @@ function addToBasket(product) {
             'currency': CURRENCY,
             'value': product.price,
             'items': [{
-                'item_name':     product.item_name,
-                'item_id':       product.item_id,
-                'price':         product.price,
+                'item_name': product.item_name,
+                'item_id': product.item_id,
+                'price': product.price,
                 'item_category': product.item_category,
-                'quantity':      1
+                'quantity': 1
             }]
         }
     });
@@ -246,6 +247,7 @@ function removeFromBasket(itemId) {
             'items': [{
                 'item_name': removedItem.item_name,
                 'item_id': removedItem.item_id,
+                'item_category': removedItem.item_category || '',
                 'price': removedItem.price,
                 'quantity': removedItem.quantity
             }]
@@ -325,6 +327,7 @@ function pushBeginCheckout() {
                 return {
                     'item_name': item.item_name,
                     'item_id': item.item_id,
+                    'item_category': item.item_category || '',
                     'price': item.price,
                     'quantity': item.quantity
                 };
@@ -334,6 +337,30 @@ function pushBeginCheckout() {
 
     console.log('dataLayer: Pushed begin_checkout event with', basket.length, 'items, total:', total);
 }
+
+function pushViewCart() {
+    var basket = getBasket();
+    var total = getBasketTotal();
+
+    window.dataLayer.push({ ecommerce: null });
+    window.dataLayer.push({
+        event: 'view_cart',
+        ecommerce: {
+            currency: CURRENCY,
+            value: total,
+            items: basket.map(function (item) {
+                return {
+                    item_id: item.item_id,
+                    item_name: item.item_name,
+                    item_category: item.item_category || '',
+                    price: item.price,
+                    quantity: item.quantity
+                };
+            })
+        }
+    });
+}
+
 
 /**
  * Push the purchase event to dataLayer and save order details
@@ -367,6 +394,7 @@ function pushPurchaseEvent() {
             return {
                 item_name: item.item_name,
                 item_id: item.item_id,
+                item_category: item.item_category || '',
                 price: item.price,
                 quantity: item.quantity
             };

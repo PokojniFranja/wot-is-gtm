@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Render the basket on page load
     renderBasket();
+    pushViewCart();
 
     // Set up checkout form handler
     setupCheckoutForm();
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('checkout-section').style.display = 'none';
             document.getElementById('basket-contents').style.display = 'block';
             renderBasket();
+            pushViewCart();
         });
     }
 });
