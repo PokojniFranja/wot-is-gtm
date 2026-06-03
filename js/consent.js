@@ -143,30 +143,30 @@ function showConsentBanner() {
     banner.innerHTML = `
         <div class="consent-banner-content">
             <div class="consent-banner-text">
-                <h3>🍪 We Use Cookies</h3>
+                <h3>🍪 Koristimo kolačiće</h3>
                 <p>
-                    This site uses cookies and tracking technologies to improve your experience
-                    and analyze site usage. You can choose which types of cookies to allow.
+                    Ova stranica koristi kolačiće i tehnologije praćenja za poboljšanje tvog iskustva
+                    i analizu korištenja stranice. Možeš odabrati koje vrste kolačića dopuštaš.
                 </p>
             </div>
 
             <div class="consent-banner-buttons">
                 <button id="consent-accept-all" class="consent-btn consent-btn-primary">
-                    Accept All
+                    Prihvati sve
                 </button>
                 <button id="consent-reject-all" class="consent-btn consent-btn-secondary">
-                    Reject All
+                    Odbij sve
                 </button>
                 <button id="consent-manage" class="consent-btn consent-btn-tertiary">
-                    Manage Preferences
+                    Upravljaj postavkama
                 </button>
             </div>
 
             <!-- Expandable preferences section (hidden by default) -->
             <div id="consent-preferences" class="consent-preferences" style="display: none;">
-                <h4>Cookie Preferences</h4>
+                <h4>Postavke kolačića</h4>
                 <p class="consent-preferences-intro">
-                    Choose which types of cookies you want to allow. You can change these settings at any time.
+                    Odaberi koje vrste kolačića želiš dopustiti. Ove postavke možeš promijeniti u bilo kojem trenutku.
                 </p>
 
                 <!-- Analytics Cookies -->
@@ -176,10 +176,10 @@ function showConsentBanner() {
                         <span class="consent-toggle-slider"></span>
                     </label>
                     <div class="consent-preference-info">
-                        <strong>Analytics Cookies</strong>
+                        <strong>Analitički kolačići</strong>
                         <p>
-                            Help us understand how visitors interact with our website by collecting
-                            and reporting information anonymously. Examples: Google Analytics.
+                            Pomažu nam razumjeti kako posjetitelji koriste našu web stranicu prikupljanjem
+                            i anonimnim izvještavanjem informacija. Primjeri: Google Analytics.
                         </p>
                     </div>
                 </div>
@@ -191,12 +191,12 @@ function showConsentBanner() {
                         <span class="consent-toggle-slider"></span>
                     </label>
                     <div class="consent-preference-info">
-                        <strong>Advertising Cookies</strong>
+                        <strong>Oglašivački kolačići</strong>
                         <p>
-                            Used to make advertising messages more relevant to you. They perform functions
-                            like preventing the same ad from continuously reappearing, ensuring ads display
-                            properly, and in some cases selecting ads based on your interests.
-                            <br><small>(Controls: ad_storage, ad_user_data, ad_personalization)</small>
+                            Koriste se kako bi oglasne poruke bile relevantnije za tebe. Obavljaju funkcije
+                            poput sprječavanja da se isti oglas neprestano pojavljuje, osiguravanja pravilnog
+                            prikaza oglasa te u nekim slučajevima odabira oglasa na temelju tvojih interesa.
+                            <br><small>(Kontrolira: ad_storage, ad_user_data, ad_personalization)</small>
                         </p>
                     </div>
                 </div>
@@ -208,11 +208,11 @@ function showConsentBanner() {
                         <span class="consent-toggle-slider"></span>
                     </label>
                     <div class="consent-preference-info">
-                        <strong>Functionality Cookies</strong>
+                        <strong>Funkcionalni kolačići</strong>
                         <p>
-                            Enable enhanced functionality and personalization, such as remembering your
-                            language preference or region. These are often considered "necessary" for
-                            basic site functionality.
+                            Omogućuju poboljšanu funkcionalnost i personalizaciju, poput pamćenja tvojih
+                            jezičnih postavki ili regije. Često se smatraju „nužnima" za
+                            osnovnu funkcionalnost stranice.
                         </p>
                     </div>
                 </div>
@@ -224,21 +224,21 @@ function showConsentBanner() {
                         <span class="consent-toggle-slider"></span>
                     </label>
                     <div class="consent-preference-info">
-                        <strong>Personalization Cookies</strong>
+                        <strong>Personalizacijski kolačići</strong>
                         <p>
-                            Allow the website to remember choices you make (like username or language)
-                            and provide enhanced, more personal features. Examples: video player
-                            preferences, customized content recommendations.
+                            Omogućuju web stranici da zapamti izbore koje napraviš (poput korisničkog imena ili jezika)
+                            i pruži poboljšane, osobnije značajke. Primjeri: postavke video playera,
+                            prilagođene preporuke sadržaja.
                         </p>
                     </div>
                 </div>
 
                 <div class="consent-preferences-buttons">
                     <button id="consent-save-preferences" class="consent-btn consent-btn-primary">
-                        Save My Preferences
+                        Spremi moje postavke
                     </button>
                     <button id="consent-cancel" class="consent-btn consent-btn-tertiary">
-                        Cancel
+                        Odustani
                     </button>
                 </div>
             </div>
@@ -360,7 +360,7 @@ function createCookieSettingsButton() {
     const button = document.createElement('button');
     button.id = 'cookie-settings-btn';
     button.className = 'cookie-settings-btn';
-    button.innerHTML = '🍪 Cookie Settings';
+    button.innerHTML = '🍪 Postavke kolačića';
 
     // When clicked, show the consent banner again
     button.addEventListener('click', () => {

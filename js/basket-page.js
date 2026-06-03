@@ -53,9 +53,9 @@ function renderBasket() {
     if (basket.length === 0) {
         container.innerHTML = ''
             + '<div class="card text-center">'
-            + '  <h2>Your basket is empty</h2>'
-            + '  <p>Browse our products and add some items to get started.</p>'
-            + '  <a href="products.html" class="btn">Continue Shopping</a>'
+            + '  <h2>Tvoja košarica je prazna</h2>'
+            + '  <p>Pregledaj naše proizvode i dodaj nešto za početak.</p>'
+            + '  <a href="products.html" class="btn">Nastavi kupovinu</a>'
             + '</div>';
         return;
     }
@@ -67,10 +67,10 @@ function renderBasket() {
     // Table header
     html += '<div class="basket-table">';
     html += '  <div class="basket-header">';
-    html += '    <div class="basket-col-product">Product</div>';
-    html += '    <div class="basket-col-price">Price</div>';
-    html += '    <div class="basket-col-quantity">Quantity</div>';
-    html += '    <div class="basket-col-subtotal">Subtotal</div>';
+    html += '    <div class="basket-col-product">Proizvod</div>';
+    html += '    <div class="basket-col-price">Cijena</div>';
+    html += '    <div class="basket-col-quantity">Količina</div>';
+    html += '    <div class="basket-col-subtotal">Međuzbroj</div>';
     html += '    <div class="basket-col-action"></div>';
     html += '  </div>';
 
@@ -91,7 +91,7 @@ function renderBasket() {
         html += '    </div>';
         html += '    <div class="basket-col-subtotal"><strong>' + subtotal.toFixed(2) + ' EUR</strong></div>';
         html += '    <div class="basket-col-action">';
-        html += '      <button class="btn-remove" data-item-id="' + item.item_id + '">Remove</button>';
+        html += '      <button class="btn-remove" data-item-id="' + item.item_id + '">Ukloni</button>';
         html += '    </div>';
         html += '  </div>';
     });
@@ -100,13 +100,13 @@ function renderBasket() {
 
     // Order total
     html += '<div class="basket-total">';
-    html += '  <strong>Order Total: ' + total.toFixed(2) + ' EUR</strong>';
+    html += '  <strong>Ukupno za narudžbu: ' + total.toFixed(2) + ' EUR</strong>';
     html += '</div>';
 
     // Action buttons
     html += '<div class="basket-actions">';
-    html += '  <a href="products.html" class="btn btn-secondary">Continue Shopping</a>';
-    html += '  <button id="proceed-checkout-btn" class="btn">Proceed to Checkout</button>';
+    html += '  <a href="products.html" class="btn btn-secondary">Nastavi kupovinu</a>';
+    html += '  <button id="proceed-checkout-btn" class="btn">Nastavi na naplatu</button>';
     html += '</div>';
 
     container.innerHTML = html;
@@ -154,7 +154,7 @@ function renderBasket() {
             // removeFromBasket (from basket.js) pushes remove_from_cart to dataLayer
             removeFromBasket(itemId);
             renderBasket(); // Re-render the page
-            showNotification('Item removed from basket');
+            showNotification('Proizvod uklonjen iz košarice');
         });
     });
 

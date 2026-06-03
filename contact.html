@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact form for testing GTM form submission tracking">
-    <title>Contact - GTM Prčkanje</title>
+    <meta name="description" content="Kontakt obrazac za testiranje GTM praćenja slanja obrazaca">
+    <title>Kontakt - GTM Igraonica</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -148,14 +148,14 @@
     <!-- Header & Navigation -->
     <header>
         <div class="header-container">
-            <a href="index.html" class="logo">GTM Prčkanje</a>
+            <a href="index.html" class="logo">GTM Igraonica</a>
             <nav>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="privacy.html">Privacy</a></li>
+                    <li><a href="index.html">Početna</a></li>
+                    <li><a href="about.html">O nama</a></li>
+                    <li><a href="products.html">Proizvodi</a></li>
+                    <li><a href="contact.html">Kontakt</a></li>
+                    <li><a href="privacy.html">Privatnost</a></li>
                     <!-- Basket link with SVG cart icon and item counter badge -->
                     <li>
                         <a href="basket.html" class="basket-link">
@@ -164,7 +164,7 @@
                                 <path
                                     d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12.94-1.7h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020.04 4H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7.42c-.13 0-.22-.09-.22-.2l-.04-.04z" />
                             </svg>
-                            Basket
+                            Košarica
                             <span id="basket-count" class="basket-badge" style="display:none;">0</span>
                         </a>
                     </li>
@@ -176,60 +176,60 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-            <h1>Contact Us</h1>
+            <h1>Kontaktiraj nas</h1>
             <p>
-                This contact form is designed for testing GTM form submission tracking.
-                We'll learn how to track when users submit forms and capture form data.
+                Ovaj kontakt obrazac osmišljen je za testiranje GTM praćenja slanja obrazaca.
+                Naučit ćemo kako pratiti kada korisnici šalju obrasce i hvatati podatke obrasca.
             </p>
 
             <!-- Contact Form -->
             <section class="card">
-                <h2>Send Us a Message</h2>
+                <h2>Pošalji nam poruku</h2>
                 <form id="contactForm" name="contact_form">
                     <div class="form-group">
-                        <label for="name">Your Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                        <label for="name">Tvoje ime *</label>
+                        <input type="text" id="name" name="name" required placeholder="Ivan Horvat">
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required placeholder="john@example.com">
+                        <label for="email">E-mail adresa *</label>
+                        <input type="email" id="email" name="email" required placeholder="ivan@primjer.com">
                     </div>
 
                     <div class="form-group">
-                        <label for="subject">Subject *</label>
-                        <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+                        <label for="subject">Predmet *</label>
+                        <input type="text" id="subject" name="subject" required placeholder="O čemu se radi?">
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message *</label>
+                        <label for="message">Poruka *</label>
                         <textarea id="message" name="message" required
-                            placeholder="Tell us what you're thinking..."></textarea>
+                            placeholder="Reci nam što ti je na umu..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn">Send Message</button>
+                    <button type="submit" class="btn">Pošalji poruku</button>
                 </form>
             </section>
 
             <section class="card">
-                <h2>Why This Page Matters for GTM Learning</h2>
+                <h2>Zašto je ova stranica važna za učenje GTM-a</h2>
                 <p>
-                    Form tracking is one of the most important use cases for GTM. Forms are
-                    conversion points - they're where users take meaningful actions on your site.
+                    Praćenje obrazaca jedan je od najvažnijih slučajeva korištenja GTM-a. Obrasci su
+                    točke konverzije - mjesta na kojima korisnici poduzimaju značajne radnje na tvojoj stranici.
                 </p>
-                <p>Here's what we'll learn to track on this page:</p>
+                <p>Evo što ćemo naučiti pratiti na ovoj stranici:</p>
                 <ul>
-                    <li><strong>Form Submissions:</strong> Trigger tags when the form is successfully submitted</li>
-                    <li><strong>Form Data:</strong> Capture which fields were filled out (without capturing PII)</li>
-                    <li><strong>Form Abandonment:</strong> Track when users start but don't complete forms</li>
-                    <li><strong>Validation Errors:</strong> Monitor if users encounter errors</li>
-                    <li><strong>Conversion Events:</strong> Send form submission as a conversion to GA4</li>
+                    <li><strong>Slanje obrazaca:</strong> Aktiviraj oznake kad je obrazac uspješno poslan</li>
+                    <li><strong>Podaci obrasca:</strong> Uhvati koja su polja ispunjena (bez hvatanja osobnih podataka)</li>
+                    <li><strong>Napuštanje obrasca:</strong> Prati kada korisnici počnu, ali ne dovrše obrasce</li>
+                    <li><strong>Pogreške provjere:</strong> Prati nailaze li korisnici na pogreške</li>
+                    <li><strong>Događaji konverzije:</strong> Pošalji slanje obrasca kao konverziju u GA4</li>
                 </ul>
                 <p>
-                    <strong>Privacy Note:</strong> In a real implementation, you should NOT send
-                    personally identifiable information (PII) like email addresses or names to
-                    Google Analytics. We'll learn how to track that a form was submitted without
-                    capturing the actual user data.
+                    <strong>Napomena o privatnosti:</strong> U stvarnoj implementaciji NE bi smio slati
+                    osobne podatke (PII) poput e-mail adresa ili imena u
+                    Google Analytics. Naučit ćemo kako pratiti da je obrazac poslan bez
+                    hvatanja stvarnih podataka korisnika.
                 </p>
             </section>
         </div>
@@ -239,11 +239,11 @@
     <footer>
         <div class="footer-container">
             <ul class="footer-links">
-                <li><a href="privacy.html">Privacy Policy</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="privacy.html">Pravila privatnosti</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
                 <li><a href="https://github.com" target="_blank">GitHub</a></li>
             </ul>
-            <p>&copy; 2026 GTM Learning Project. Built for educational purposes.</p>
+            <p>&copy; 2026 GTM projekt za učenje. Izrađeno u edukativne svrhe.</p>
         </div>
     </footer>
 
@@ -281,7 +281,7 @@
                 console.log('Form submitted:', formData);
 
                 // Show success message
-                showNotification('Thank you! Your message has been sent.');
+                showNotification('Hvala! Tvoja poruka je poslana.');
 
                 // Reset form
                 contactForm.reset();

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'event': 'view_item_list',
       'ecommerce': {
           'item_list_id':   'products_page',
-          'item_list_name': 'Demo Products',
+          'item_list_name': 'Demo proizvodi',
           'currency':       'EUR',
           'items':          itemList
       }
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Show a notification to the user
             // showNotification() is defined in main.js
-            showNotification('Product added! "' + product.item_name + '"');
+            showNotification('Proizvod dodan! „' + product.item_name + '"');
         });
     });
 

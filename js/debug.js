@@ -79,18 +79,18 @@ function createDebugPanel() {
     panel.className = 'gtm-debug-panel';
     panel.innerHTML = `
         <div class="gtm-debug-header">
-            <h2>🔍 GTM Debug Dashboard</h2>
+            <h2>🔍 GTM Debug nadzorna ploča</h2>
             <button id="gtm-debug-close" class="gtm-debug-close">✕</button>
         </div>
 
         <div class="gtm-debug-content">
             <!-- CONSENT STATE SECTION -->
             <div class="gtm-debug-section">
-                <h3>🔐 Consent State</h3>
+                <h3>🔐 Stanje privole</h3>
                 <p class="gtm-debug-help">
-                    Shows the current consent status for each category.
-                    <span class="status-granted">Green = Granted</span>,
-                    <span class="status-denied">Red = Denied</span>
+                    Prikazuje trenutni status privole za svaku kategoriju.
+                    <span class="status-granted">Zeleno = Dopušteno</span>,
+                    <span class="status-denied">Crveno = Odbijeno</span>
                 </p>
                 <div id="consent-state-display" class="consent-state-grid">
                     <!-- Will be populated by updateConsentDisplay() -->
@@ -99,17 +99,17 @@ function createDebugPanel() {
 
             <!-- COOKIES SECTION -->
             <div class="gtm-debug-section">
-                <h3>🍪 Cookies</h3>
+                <h3>🍪 Kolačići</h3>
                 <p class="gtm-debug-help">
-                    All cookies currently set in your browser. Auto-refreshes every 2 seconds.
-                    Look for "_ga" cookies (Google Analytics) after granting analytics consent.
+                    Svi kolačići trenutno postavljeni u tvom pregledniku. Automatski se osvježava svake 2 sekunde.
+                    Potraži „_ga" kolačiće (Google Analytics) nakon davanja privole za analitiku.
                 </p>
                 <div class="gtm-debug-actions">
                     <button id="clear-all-cookies" class="gtm-debug-btn-small gtm-debug-btn-danger">
-                        Clear All Cookies
+                        Obriši sve kolačiće
                     </button>
                     <button id="refresh-cookies" class="gtm-debug-btn-small">
-                        Refresh Now
+                        Osvježi sada
                     </button>
                 </div>
                 <div id="cookies-display" class="cookies-list">
@@ -119,14 +119,14 @@ function createDebugPanel() {
 
             <!-- DATALAYER SECTION -->
             <div class="gtm-debug-section">
-                <h3>📊 dataLayer Events</h3>
+                <h3>📊 dataLayer događaji</h3>
                 <p class="gtm-debug-help">
-                    Live log of all events pushed to the dataLayer. Most recent at the top.
-                    Watch this as you interact with the page!
+                    Zapis uživo svih događaja poslanih u dataLayer. Najnoviji na vrhu.
+                    Prati ovo dok koristiš stranicu!
                 </p>
                 <div class="gtm-debug-actions">
                     <button id="clear-datalayer-log" class="gtm-debug-btn-small">
-                        Clear Log
+                        Obriši zapis
                     </button>
                 </div>
                 <div id="datalayer-display" class="datalayer-log">
@@ -136,16 +136,16 @@ function createDebugPanel() {
 
             <!-- TESTING TOOLS SECTION -->
             <div class="gtm-debug-section">
-                <h3>🧪 Testing Tools</h3>
+                <h3>🧪 Alati za testiranje</h3>
                 <p class="gtm-debug-help">
-                    Tools to help you test different consent scenarios and cookie behavior.
+                    Alati koji ti pomažu testirati različite scenarije privole i ponašanje kolačića.
                 </p>
                 <div class="gtm-debug-actions">
                     <button id="reset-consent" class="gtm-debug-btn-small gtm-debug-btn-warning">
-                        Reset Consent & Reload
+                        Poništi privolu i ponovno učitaj
                     </button>
                     <button id="view-localstorage" class="gtm-debug-btn-small">
-                        View localStorage
+                        Pregledaj localStorage
                     </button>
                 </div>
             </div>
@@ -208,13 +208,13 @@ function updateConsentDisplay() {
 
     // Default consent types to check
     const consentTypes = [
-        { key: 'analytics_storage', label: 'Analytics Storage', icon: '📊' },
-        { key: 'ad_storage', label: 'Ad Storage', icon: '📢' },
-        { key: 'ad_user_data', label: 'Ad User Data', icon: '👤' },
-        { key: 'ad_personalization', label: 'Ad Personalization', icon: '🎯' },
-        { key: 'functionality_storage', label: 'Functionality Storage', icon: '⚙️' },
-        { key: 'personalization_storage', label: 'Personalization Storage', icon: '✨' },
-        { key: 'security_storage', label: 'Security Storage', icon: '🔒' }
+        { key: 'analytics_storage', label: 'Pohrana analitike', icon: '📊' },
+        { key: 'ad_storage', label: 'Pohrana oglasa', icon: '📢' },
+        { key: 'ad_user_data', label: 'Korisnički podaci oglasa', icon: '👤' },
+        { key: 'ad_personalization', label: 'Personalizacija oglasa', icon: '🎯' },
+        { key: 'functionality_storage', label: 'Pohrana funkcionalnosti', icon: '⚙️' },
+        { key: 'personalization_storage', label: 'Pohrana personalizacije', icon: '✨' },
+        { key: 'security_storage', label: 'Pohrana sigurnosti', icon: '🔒' }
     ];
 
     let html = '';
@@ -234,7 +234,7 @@ function updateConsentDisplay() {
         `;
     });
 
-    display.innerHTML = html || '<p class="gtm-debug-empty">No consent state found (using defaults)</p>';
+    display.innerHTML = html || '<p class="gtm-debug-empty">Stanje privole nije pronađeno (koriste se zadane vrijednosti)</p>';
 }
 
 /**
@@ -254,15 +254,15 @@ function updateCookiesDisplay() {
     const cookies = getAllCookies();
 
     if (cookies.length === 0) {
-        display.innerHTML = '<p class="gtm-debug-empty">No cookies set</p>';
+        display.innerHTML = '<p class="gtm-debug-empty">Nema postavljenih kolačića</p>';
         return;
     }
 
     let html = '<div class="cookies-table">';
     html += `
         <div class="cookies-table-header">
-            <div>Name</div>
-            <div>Value</div>
+            <div>Naziv</div>
+            <div>Vrijednost</div>
             <div>Info</div>
         </div>
     `;
@@ -282,7 +282,7 @@ function updateCookiesDisplay() {
                     <code>${escapeHtml(displayValue)}</code>
                 </div>
                 <div class="cookie-info">
-                    <small>Size: ${cookie.value.length} chars</small>
+                    <small>Veličina: ${cookie.value.length} znakova</small>
                 </div>
             </div>
         `;
@@ -330,7 +330,7 @@ function highlightGACookies(name) {
  * WARNING: This will clear ALL cookies, including those not set by GTM
  */
 function clearAllCookies() {
-    if (!confirm('This will delete ALL cookies. Continue?')) return;
+    if (!confirm('Ovo će obrisati SVE kolačiće. Nastaviti?')) return;
 
     const cookies = getAllCookies();
     let cleared = 0;
@@ -346,7 +346,7 @@ function clearAllCookies() {
     });
 
     console.log(`🗑️ Cleared ${cleared} cookies`);
-    alert(`Cleared ${cleared} cookies. Some cookies may persist due to different paths/domains.`);
+    alert(`Obrisano ${cleared} kolačića. Neki kolačići mogu ostati zbog različitih putanja/domena.`);
     updateCookiesDisplay();
 }
 
@@ -395,7 +395,7 @@ function logDataLayerEvent(event) {
     entry.className = 'datalayer-event';
 
     const timestamp = new Date().toLocaleTimeString();
-    const eventName = event.event || '(no event name)';
+    const eventName = event.event || '(bez naziva događaja)';
     const isImportant = ['consent_updated', 'gtm.js', 'gtm.load'].includes(event.event);
 
     if (isImportant) {
@@ -426,7 +426,7 @@ function logDataLayerEvent(event) {
 function clearDataLayerLog() {
     const display = document.getElementById('datalayer-display');
     if (display) {
-        display.innerHTML = '<p class="gtm-debug-empty">Log cleared. New events will appear here.</p>';
+        display.innerHTML = '<p class="gtm-debug-empty">Zapis obrisan. Novi događaji pojavit će se ovdje.</p>';
     }
 }
 
@@ -440,7 +440,7 @@ function clearDataLayerLog() {
  * Reset consent preferences and reload the page
  */
 function resetConsent() {
-    if (!confirm('This will reset your consent preferences and reload the page. Continue?')) return;
+    if (!confirm('Ovo će poništiti tvoje postavke privole i ponovno učitati stranicu. Nastaviti?')) return;
 
     // Clear consent from localStorage
     localStorage.removeItem('gtm_consent_preferences');
@@ -463,7 +463,7 @@ function viewLocalStorage() {
     }
 
     console.log('📦 localStorage contents:', items);
-    alert(`localStorage has ${items.length} items. Check the console for details.`);
+    alert(`localStorage ima ${items.length} stavki. Pogledaj konzolu za detalje.`);
 }
 
 /**
